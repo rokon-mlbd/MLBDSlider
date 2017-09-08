@@ -19,11 +19,6 @@ class MLBDSliderImages: UIControl {
             layoutTrack()
         }
     }
-    var emphasizedImages:[UIImage] = [] {
-        didSet {
-            layoutTrack()
-        }
-    }
     var regularImages:[UIImage] = [] {
         didSet {
             layoutTrack()
@@ -45,6 +40,7 @@ class MLBDSliderImages: UIControl {
     // MARK: UIView
     override init(frame: CGRect) {
         super.init(frame: frame)
+        layoutTrack()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,11 +50,12 @@ class MLBDSliderImages: UIControl {
 
     private func updateSliderForValue(_ value: Int) {
         let calculatedValue = Int(round(Double(value) * rangOffset))
+        print(calculatedValue)
         for imageView in imageViews {
             if imageView.tickRange.contains(Double(value) * rangOffset) {
-                imageView.image = emphasizedImages[calculatedValue]
+                imageView.tintColor = .black
             } else {
-                imageView.image = regularImages[calculatedValue]
+                imageView.tintColor = .lightGray
             }
         }
     }
@@ -81,7 +78,7 @@ class MLBDSliderImages: UIControl {
             let imageView = TickImageView(frame: frame)
             imageView.tickRange = ((Double(i)-rangOffset))...((Double(i)+rangOffset))
             imageView.image = image
-            imageView.tag = i
+            imageView.tintColor = .lightGray
             self.addSubview(imageView)
             imageViews.append(imageView)
         }

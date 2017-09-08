@@ -18,9 +18,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         sliderImages.regularImages = [#imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird")]
-        sliderImages.emphasizedImages = [#imageLiteral(resourceName: "birdSelected"), #imageLiteral(resourceName: "birdSelected"), #imageLiteral(resourceName: "birdSelected"), #imageLiteral(resourceName: "birdSelected")]
-
         sliderTickers.regularImages = [#imageLiteral(resourceName: "rulerLargeInactive"),
+                                       #imageLiteral(resourceName: "rulerSmallInactive"),
+                                       #imageLiteral(resourceName: "rulerLargeInactive"),
                                        #imageLiteral(resourceName: "rulerSmallInactive"),
                                        #imageLiteral(resourceName: "rulerLargeInactive"),
                                        #imageLiteral(resourceName: "rulerSmallInactive"),
@@ -38,24 +38,8 @@ class ViewController: UIViewController {
                                        #imageLiteral(resourceName: "rulerSmallInactive"),
                                        #imageLiteral(resourceName: "rulerLargeInactive")]
 
-        sliderTickers.emphasizedImages = [ #imageLiteral(resourceName: "rulerLargeActive"),
-                                          #imageLiteral(resourceName: "rulerSmallActive"),
-                                          #imageLiteral(resourceName: "rulerLargeActive"),
-                                          #imageLiteral(resourceName: "rulerSmallActive"),
-                                          #imageLiteral(resourceName: "rulerLargeActive"),
-                                          #imageLiteral(resourceName: "rulerSmallActive"),
-                                          #imageLiteral(resourceName: "rulerLargeActive"),
-                                          #imageLiteral(resourceName: "rulerSmallActive"),
-                                          #imageLiteral(resourceName: "rulerLargeActive"),
-                                          #imageLiteral(resourceName: "rulerSmallActive"),
-                                          #imageLiteral(resourceName: "rulerLargeActive"),
-                                          #imageLiteral(resourceName: "rulerSmallActive"),
-                                          #imageLiteral(resourceName: "rulerLargeActive"),
-                                          #imageLiteral(resourceName: "rulerSmallActive"),
-                                          #imageLiteral(resourceName: "rulerLargeActive"),
-                                          #imageLiteral(resourceName: "rulerSmallActive"),
-                                          #imageLiteral(resourceName: "rulerLargeActive")]
 
+        sliderTickers.rangOffset = 18/6
         slider.ticksListener = [sliderTickers, sliderImages]
     }
 
