@@ -13,11 +13,11 @@ class MLBDSliderImages: UIControl {
 
     @IBInspectable public var tickCount: Int = 0
 
-    var emphasizedImages:[UIImage] = [#imageLiteral(resourceName: "birdSelected"), #imageLiteral(resourceName: "birdSelected"), #imageLiteral(resourceName: "birdSelected"), #imageLiteral(resourceName: "birdSelected"), #imageLiteral(resourceName: "birdSelected"), #imageLiteral(resourceName: "birdSelected")]
-    var regularImages:[UIImage] = [#imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird")]
+    var emphasizedImages:[UIImage] = [#imageLiteral(resourceName: "birdSelected"), #imageLiteral(resourceName: "birdSelected"), #imageLiteral(resourceName: "birdSelected"), #imageLiteral(resourceName: "birdSelected")]
+    var regularImages:[UIImage] = [#imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird")]
     var imageViews:[TickImageView] = []
     var ticksDistance: CGFloat = 10.0
-
+    var numberOfTicks: Int = 7
     public var value:UInt = 0 {
         didSet {
             self.updateSliderForValue(Int(value))
@@ -48,11 +48,12 @@ class MLBDSliderImages: UIControl {
     }
 
     private func updateSliderForValue(_ value: Int) {
+        let calculatedValue = Int(round(Double(value) * 0.5))
         for imageView in imageViews {
-            if imageView.tickRange.contains(Int(value)) {
-                imageView.image = emphasizedImages[value]
+            if imageView.tickRange.contains(Double(value) * 0.5) {
+                imageView.image = emphasizedImages[calculatedValue]
             } else {
-                imageView.image = regularImages[value]
+                imageView.image = regularImages[calculatedValue]
             }
         }
     }
@@ -68,7 +69,7 @@ class MLBDSliderImages: UIControl {
             let originX = offSetX + ((offSetX + imageViewWidth) * index)
             let frame = CGRect(x: originX, y: 0, width: imageViewWidth, height: height)
             let imageView = TickImageView(frame: frame)
-            imageView.tickRange = ((i-1)*3)...(i*3)
+            imageView.tickRange = ((Double(i)-0.5))...((Double(i)+0.5))
             imageView.image = image
             imageView.tag = i
             self.addSubview(imageView)
@@ -88,6 +89,6 @@ extension MLBDSliderImages : MLBDControlsTicksProtocol {
 }
 
 class TickImageView: UIImageView {
-    var tickRange: ClosedRange = 0...0
+    var tickRange: ClosedRange = 0.0...0.0
 }
 
