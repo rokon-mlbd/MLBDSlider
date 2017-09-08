@@ -14,8 +14,11 @@ class MLBDSliderImages: UIControl {
     var tickCount: Int = 7
     var imageViews:[TickImageView] = []
     var ticksDistance: CGFloat = 0.0
-    var rangOffset: Double = 0.5
-
+    var rangOffset: Double = 0.5 {
+        didSet {
+            layoutTrack()
+        }
+    }
     var emphasizedImages:[UIImage] = [] {
         didSet {
             layoutTrack()
@@ -33,9 +36,9 @@ class MLBDSliderImages: UIControl {
         }
     }
 
-    var offSetX:CGFloat = 10.0 {
+    var imageOffSetX:CGFloat = 10.0 {
         didSet {
-
+            layoutTrack()
         }
     }
 
@@ -70,10 +73,10 @@ class MLBDSliderImages: UIControl {
         let widht = self.bounds.width
         let height = self.bounds.height
         let numberOfImage = regularImages.count
-        let imageViewWidth = (widht -  CGFloat((numberOfImage + 1)) * offSetX) / CGFloat(numberOfImage)
+        let imageViewWidth = (widht -  CGFloat((numberOfImage + 1)) * imageOffSetX) / CGFloat(numberOfImage)
         for (i, image) in regularImages.enumerated() {
             let index = CGFloat(i)
-            let originX = offSetX + ((offSetX + imageViewWidth) * index)
+            let originX = imageOffSetX + ((imageOffSetX + imageViewWidth) * index)
             let frame = CGRect(x: originX, y: 0, width: imageViewWidth, height: height)
             let imageView = TickImageView(frame: frame)
             imageView.tickRange = ((Double(i)-rangOffset))...((Double(i)+rangOffset))
@@ -96,6 +99,6 @@ extension MLBDSliderImages : MLBDControlsTicksProtocol {
 }
 
 class TickImageView: UIImageView {
-    var tickRange: ClosedRange = 0.0...0.0
+    fileprivate var tickRange: ClosedRange = 0.0...0.0
 }
 

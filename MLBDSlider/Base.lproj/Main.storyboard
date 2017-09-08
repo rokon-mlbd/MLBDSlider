@@ -74,21 +74,30 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Igu-Pn-jCP" customClass="MLBDSliderImages" customModule="MLBDSlider" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="144" width="375" height="46"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Igu-Pn-jCP" firstAttribute="height" secondItem="RGy-t1-uVQ" secondAttribute="height" id="2Ga-Ph-UOM"/>
                             <constraint firstItem="D3I-gk-BrN" firstAttribute="top" secondItem="RGy-t1-uVQ" secondAttribute="bottom" constant="8" id="7AF-g4-GU7"/>
+                            <constraint firstItem="Igu-Pn-jCP" firstAttribute="leading" secondItem="RGy-t1-uVQ" secondAttribute="leading" id="Gb8-Pw-D5L"/>
                             <constraint firstItem="RGy-t1-uVQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="LwX-Fv-FaT"/>
                             <constraint firstItem="D3I-gk-BrN" firstAttribute="height" secondItem="RGy-t1-uVQ" secondAttribute="height" id="N6l-fi-Fxg"/>
                             <constraint firstItem="RGy-t1-uVQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="TrF-GO-0l9"/>
                             <constraint firstItem="D3I-gk-BrN" firstAttribute="trailing" secondItem="RGy-t1-uVQ" secondAttribute="trailing" id="aWK-6c-k5H"/>
                             <constraint firstAttribute="trailing" secondItem="RGy-t1-uVQ" secondAttribute="trailing" id="ijC-mc-W4o"/>
+                            <constraint firstItem="Igu-Pn-jCP" firstAttribute="top" secondItem="D3I-gk-BrN" secondAttribute="bottom" constant="8" id="lFJ-oh-7tk"/>
                             <constraint firstItem="D3I-gk-BrN" firstAttribute="leading" secondItem="RGy-t1-uVQ" secondAttribute="leading" id="lP4-Ut-xAT"/>
+                            <constraint firstItem="Igu-Pn-jCP" firstAttribute="trailing" secondItem="RGy-t1-uVQ" secondAttribute="trailing" id="p7T-Vq-USv"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="slider" destination="D3I-gk-BrN" id="Qny-Ph-2jq"/>
                         <outlet property="sliderImages" destination="RGy-t1-uVQ" id="QJN-na-MAQ"/>
+                        <outlet property="sliderTickers" destination="Igu-Pn-jCP" id="LYf-dg-86t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -235,10 +235,14 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
         set {}
     }
 
-    public var ticksListener:MLBDControlsTicksProtocol? = nil {
+    public var ticksListener:[MLBDControlsTicksProtocol]? = nil {
         didSet {
-            ticksListener?.mlbdTicksDistanceChanged(ticksDistance: ticksDistance,
-                                                   sender: self)
+            if let ticksListener = ticksListener {
+                for listenter in ticksListener {
+                    listenter.mlbdTicksDistanceChanged(ticksDistance: ticksDistance,
+                                                       sender: self)
+                }
+            }
         }
     }
 
@@ -279,7 +283,9 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
     func sendActionsForControlEvents() {
         // Automatic UIControlEventValueChanged notification
         if let ticksListener = ticksListener {
-            ticksListener.mlbdValueChanged(value: UInt(value))
+            for listener in ticksListener {
+                listener.mlbdValueChanged(value: UInt(value))
+            }
         }
     }
 
@@ -547,7 +553,12 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
         layoutThumb()
 
         // If we have a TGPDiscreteSliderTicksListener (such as TGPCamelLabels), broadcast new spacing
-        ticksListener?.mlbdTicksDistanceChanged(ticksDistance:ticksDistance, sender:self)
+        if let ticksListener = ticksListener {
+            for listener in ticksListener {
+                listener.mlbdTicksDistanceChanged(ticksDistance:ticksDistance, sender:self)
+            }
+
+        }
         setNeedsDisplay()
     }
 
