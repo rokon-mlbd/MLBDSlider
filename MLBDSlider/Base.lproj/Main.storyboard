@@ -22,16 +22,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RGy-t1-uVQ" customClass="MLBDSliderImages" customModule="MLBDSlider" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="36" width="375" height="46"/>
+                                <rect key="frame" x="0.0" y="36" width="375" height="104"/>
                                 <color key="backgroundColor" red="0.0" green="0.72549019609999998" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="NS3-ul-tA0"/>
+                                    <constraint firstAttribute="height" constant="104" id="NS3-ul-tA0"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D3I-gk-BrN" customClass="MLBDDiscreteSlider" customModule="MLBDSlider" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="90" width="375" height="46"/>
+                                <rect key="frame" x="0.0" y="148" width="375" height="20"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="dmF-g1-jKK"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="tickStyle">
                                         <integer key="value" value="0"/>
@@ -61,7 +64,7 @@
                                         <integer key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="size" keyPath="thumbSize">
-                                        <size key="value" width="60" height="20"/>
+                                        <size key="value" width="64" height="20"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="thumbTintColor">
                                         <color key="value" cocoaTouchSystemColor="darkTextColor"/>
@@ -75,21 +78,22 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Igu-Pn-jCP" customClass="MLBDSliderImages" customModule="MLBDSlider" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="144" width="375" height="46"/>
+                                <rect key="frame" x="0.0" y="172" width="375" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="gtn-Wc-x9g"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Igu-Pn-jCP" firstAttribute="height" secondItem="RGy-t1-uVQ" secondAttribute="height" id="2Ga-Ph-UOM"/>
                             <constraint firstItem="D3I-gk-BrN" firstAttribute="top" secondItem="RGy-t1-uVQ" secondAttribute="bottom" constant="8" id="7AF-g4-GU7"/>
                             <constraint firstItem="Igu-Pn-jCP" firstAttribute="leading" secondItem="RGy-t1-uVQ" secondAttribute="leading" id="Gb8-Pw-D5L"/>
                             <constraint firstItem="RGy-t1-uVQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="LwX-Fv-FaT"/>
-                            <constraint firstItem="D3I-gk-BrN" firstAttribute="height" secondItem="RGy-t1-uVQ" secondAttribute="height" id="N6l-fi-Fxg"/>
                             <constraint firstItem="RGy-t1-uVQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="TrF-GO-0l9"/>
                             <constraint firstItem="D3I-gk-BrN" firstAttribute="trailing" secondItem="RGy-t1-uVQ" secondAttribute="trailing" id="aWK-6c-k5H"/>
                             <constraint firstAttribute="trailing" secondItem="RGy-t1-uVQ" secondAttribute="trailing" id="ijC-mc-W4o"/>
-                            <constraint firstItem="Igu-Pn-jCP" firstAttribute="top" secondItem="D3I-gk-BrN" secondAttribute="bottom" constant="8" id="lFJ-oh-7tk"/>
+                            <constraint firstItem="Igu-Pn-jCP" firstAttribute="top" secondItem="D3I-gk-BrN" secondAttribute="bottom" constant="4" id="lFJ-oh-7tk"/>
                             <constraint firstItem="D3I-gk-BrN" firstAttribute="leading" secondItem="RGy-t1-uVQ" secondAttribute="leading" id="lP4-Ut-xAT"/>
                             <constraint firstItem="Igu-Pn-jCP" firstAttribute="trailing" secondItem="RGy-t1-uVQ" secondAttribute="trailing" id="p7T-Vq-USv"/>
                         </constraints>

@@ -37,6 +37,12 @@ class MLBDSliderImages: UIControl {
         }
     }
 
+    var contentMood: UIViewContentMode = .bottom {
+        didSet {
+            layoutTrack()
+        }
+    }
+
     // MARK: UIView
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,6 +84,7 @@ class MLBDSliderImages: UIControl {
             let imageView = TickImageView(frame: frame)
             imageView.tickRange = ((Double(i)-rangOffset))...((Double(i)+rangOffset))
             imageView.image = image
+            imageView.contentMode = contentMood
             imageView.tintColor = .lightGray
             self.addSubview(imageView)
             imageViews.append(imageView)

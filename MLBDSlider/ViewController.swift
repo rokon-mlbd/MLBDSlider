@@ -17,7 +17,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        sliderImages.regularImages = [#imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bird")]
+        sliderImages.regularImages = [#imageLiteral(resourceName: "bird_1"), #imageLiteral(resourceName: "bird_2"), #imageLiteral(resourceName: "bird_3"), #imageLiteral(resourceName: "bird_4")]
         sliderTickers.regularImages = [#imageLiteral(resourceName: "rulerLargeInactive"),
                                        #imageLiteral(resourceName: "rulerSmallInactive"),
                                        #imageLiteral(resourceName: "rulerLargeInactive"),
@@ -40,6 +40,7 @@ class ViewController: UIViewController {
 
 
         sliderTickers.rangOffset = 18/6
+        sliderTickers.contentMood = .top
         slider.ticksListener = [sliderTickers, sliderImages]
     }
 
