@@ -42,8 +42,11 @@ class ViewController: UIViewController {
         sliderTickers.rangOffset = 18/6
         sliderTickers.contentMood = .top
         slider.ticksListener = [sliderTickers, sliderImages]
+        slider.addTarget(self, action: #selector(ViewController.valueChanged(_:event:)), for: .valueChanged)
     }
-
-
+    
+    func valueChanged(_ sender: MLBDDiscreteSlider, event:UIEvent) {
+        print("Value Changed: \(sender.value)")
+    }
 }
 

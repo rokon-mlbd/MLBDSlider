@@ -12,7 +12,6 @@
 		3A2BA8DD1F60FE99005A1F98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BA8DB1F60FE99005A1F98 /* Main.storyboard */; };
 		3A2BA8DF1F60FE99005A1F98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BA8DE1F60FE99005A1F98 /* Assets.xcassets */; };
 		3A2BA8E21F60FE99005A1F98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A2BA8E01F60FE99005A1F98 /* LaunchScreen.storyboard */; };
-		3A2BA8F71F6146C3005A1F98 /* MLBDCamelLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BA8F31F6146C3005A1F98 /* MLBDCamelLabels.swift */; };
 		3A2BA8F81F6146C3005A1F98 /* MLBDControlsTicksProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BA8F41F6146C3005A1F98 /* MLBDControlsTicksProtocol.swift */; };
 		3A2BA8F91F6146C3005A1F98 /* MLBDDiscreteSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BA8F51F6146C3005A1F98 /* MLBDDiscreteSlider.swift */; };
 		3A2BA8FA1F6146C3005A1F98 /* MLBDSliderImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2BA8F61F6146C3005A1F98 /* MLBDSliderImages.swift */; };
@@ -26,7 +25,6 @@
 		3A2BA8DE1F60FE99005A1F98 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A2BA8E11F60FE99005A1F98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A2BA8E31F60FE99005A1F98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3A2BA8F31F6146C3005A1F98 /* MLBDCamelLabels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLBDCamelLabels.swift; sourceTree = "<group>"; };
 		3A2BA8F41F6146C3005A1F98 /* MLBDControlsTicksProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLBDControlsTicksProtocol.swift; sourceTree = "<group>"; };
 		3A2BA8F51F6146C3005A1F98 /* MLBDDiscreteSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLBDDiscreteSlider.swift; sourceTree = "<group>"; };
 		3A2BA8F61F6146C3005A1F98 /* MLBDSliderImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MLBDSliderImages.swift; sourceTree = "<group>"; };
@@ -76,7 +74,6 @@
 		3A2BA8F21F6146C3005A1F98 /* MLBDPControls */ = {
 			isa = PBXGroup;
 			children = (
-				3A2BA8F31F6146C3005A1F98 /* MLBDCamelLabels.swift */,
 				3A2BA8F41F6146C3005A1F98 /* MLBDControlsTicksProtocol.swift */,
 				3A2BA8F51F6146C3005A1F98 /* MLBDDiscreteSlider.swift */,
 				3A2BA8F61F6146C3005A1F98 /* MLBDSliderImages.swift */,
@@ -159,7 +156,6 @@
 				3A2BA8DA1F60FE99005A1F98 /* ViewController.swift in Sources */,
 				3A2BA8FA1F6146C3005A1F98 /* MLBDSliderImages.swift in Sources */,
 				3A2BA8F81F6146C3005A1F98 /* MLBDControlsTicksProtocol.swift in Sources */,
-				3A2BA8F71F6146C3005A1F98 /* MLBDCamelLabels.swift in Sources */,
 				3A2BA8F91F6146C3005A1F98 /* MLBDDiscreteSlider.swift in Sources */,
 				3A2BA8D81F60FE99005A1F98 /* AppDelegate.swift in Sources */,
 			);
@@ -325,6 +321,7 @@
 				3A2BA8E81F60FE99005A1F98 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,31 +1,10 @@
-//    @file:    TGPDiscreteSlider.swift
-//    @project: TGPControls
 //
-//    @author:  Xavier Schott
-//              mailto://xschott@gmail.com
-//              http://thegothicparty.com
-//              tel://+18089383634
+//  MLBDDiscreteSlider.swift
+//  MLBDSlider
 //
-//    @license: http://opensource.org/licenses/MIT
-//    Copyright (c) 2017, Xavier Schott
+//  Created by Mohammed Rokon Uddin on 9/7/17.
+//  Copyright © 2017 Mohammed Rokon Uddin. All rights reserved.
 //
-//    Permission is hereby granted, free of charge, to any person obtaining a copy
-//    of this software and associated documentation files (the "Software"), to deal
-//    in the Software without restriction, including without limitation the rights
-//    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//    copies of the Software, and to permit persons to whom the Software is
-//    furnished to do so, subject to the following conditions:
-//
-//    The above copyright notice and this permission notice shall be included in
-//    all copies or substantial portions of the Software.
-//
-//    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//    THE SOFTWARE.
 
 import UIKit
 
@@ -40,21 +19,16 @@ public enum ComponentStyle:Int {
 
 //  Interface builder hides the IBInspectable for UIControl
 #if TARGET_INTERFACE_BUILDER
-public class TGPSlider_INTERFACE_BUILDER:UIView {
+    public class MLBDSlider_INTERFACE_BUILDER:UIView {
     }
 #else // !TARGET_INTERFACE_BUILDER
-    public class TGPSlider_INTERFACE_BUILDER:UIControl {
+    public class MLBDSlider_INTERFACE_BUILDER:UIControl {
     }
 #endif // TARGET_INTERFACE_BUILDER
 
 @IBDesignable
-public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
+public class MLBDDiscreteSlider: MLBDSlider_INTERFACE_BUILDER {
 
-    @IBInspectable public var tickStyle:Int = ComponentStyle.rectangular.rawValue {
-        didSet {
-            layoutTrack()
-        }
-    }
 
     @IBInspectable public var tickSize:CGSize = CGSize(width:1, height:4) {
         didSet {
@@ -77,7 +51,8 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
         }
     }
 
-    @IBInspectable public var trackStyle:Int = ComponentStyle.iOS.rawValue {
+
+    @IBInspectable public var trackColor:UIColor? = nil {
         didSet {
             layoutTrack()
         }
@@ -90,25 +65,14 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
         }
     }
 
-    @IBInspectable public var trackImage:UIImage? = nil {
+    @IBInspectable public var trackBorderWidth:CGFloat = 0 {
         didSet {
+            trackBorderWidth = max(0, trackBorderWidth)
             layoutTrack()
         }
     }
 
-    @IBInspectable public var minimumTrackTintColor:UIColor? = nil {
-        didSet {
-            layoutTrack()
-        }
-    }
-
-    @IBInspectable public var maximumTrackTintColor:UIColor = UIColor(white: 0.71, alpha: 1) {
-        didSet {
-            layoutTrack()
-        }
-    }
-
-    @IBInspectable public var thumbStyle:Int = ComponentStyle.iOS.rawValue {
+    @IBInspectable public var trackBorderColor:UIColor? = nil {
         didSet {
             layoutTrack()
         }
@@ -124,17 +88,6 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
 
     @IBInspectable public var thumbTintColor:UIColor? = nil {
         didSet {
-            layoutTrack()
-        }
-    }
-
-    @IBInspectable public var thumbImage:UIImage? = nil {
-        didSet {
-            if let thumbImage = thumbImage {
-                thumbLayer.contents = thumbImage.cgImage
-            } else {
-                thumbLayer.contents = nil
-            }
             layoutTrack()
         }
     }
@@ -183,34 +136,6 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
         }
     }
 
-    // MARK: @IBInspectable adapters
-
-    public var tickComponentStyle:ComponentStyle {
-        get {
-            return ComponentStyle(rawValue: tickStyle) ?? .rectangular
-        }
-        set {
-            tickStyle = newValue.rawValue
-        }
-    }
-
-    public var trackComponentStyle:ComponentStyle {
-        get {
-            return ComponentStyle(rawValue: trackStyle) ?? .iOS
-        }
-        set {
-            trackStyle = newValue.rawValue
-        }
-    }
-
-    public var thumbComponentStyle:ComponentStyle {
-        get {
-            return ComponentStyle(rawValue: thumbStyle) ?? .iOS
-        }
-        set {
-            thumbStyle = newValue.rawValue
-        }
-    }
 
     // MARK: Properties
 
@@ -252,8 +177,6 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
     var ticksAbscisses:[CGPoint] = []
     var thumbAbscisse:CGFloat = 0
     var thumbLayer = CALayer()
-    var leftTrackLayer = CALayer()
-    var rightTrackLayer = CALayer()
     var trackLayer = CALayer()
     var ticksLayer = CALayer()
     var trackRectangle = CGRect.zero
@@ -276,7 +199,6 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
 
     public override func draw(_ rect: CGRect) {
         drawTrack()
-        drawTicks()
         drawThumb()
     }
 
@@ -289,19 +211,12 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
         }
     }
 
-    // MARK: TGPDiscreteSlider
+    // MARK: MLBDDiscreteSlider
 
     func initProperties() {
         // Track is a clear clipping layer, and left + right sublayers, which brings in free animation
         trackLayer.masksToBounds = true
-        trackLayer.backgroundColor = UIColor.clear.cgColor
         layer.addSublayer(trackLayer)
-        if let backgroundColor = tintColor {
-            leftTrackLayer.backgroundColor = backgroundColor.cgColor
-        }
-        trackLayer.addSublayer(leftTrackLayer)
-        rightTrackLayer.backgroundColor = maximumTrackTintColor.cgColor
-        trackLayer.addSublayer(rightTrackLayer)
 
         // Ticks in between track and thumb
         layer.addSublayer(ticksLayer)
@@ -321,62 +236,6 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
 
         let path = UIBezierPath()
 
-        switch tickComponentStyle {
-        case .rounded:
-            fallthrough
-
-        case .rectangular:
-            fallthrough
-
-        case .image:
-            for originPoint in ticksAbscisses {
-                let rectangle = CGRect(x: originPoint.x-(tickSize.width/2),
-                                       y: originPoint.y-(tickSize.height/2),
-                                       width: tickSize.width,
-                                       height: tickSize.height)
-                switch tickComponentStyle {
-                case .rounded:
-                    path.append(UIBezierPath(roundedRect: rectangle,
-                                             cornerRadius: rectangle.height/2))
-
-                case .rectangular:
-                    path.append(UIBezierPath(rect: rectangle))
-
-                case .image:
-                    // Draw image if exists
-                    if let image = tickImage,
-                        let cgImage = image.cgImage,
-                        let ctx = UIGraphicsGetCurrentContext() {
-                        let centered = CGRect(x: rectangle.origin.x + (rectangle.width/2) - (image.size.width/2),
-                                              y: rectangle.origin.y + (rectangle.height/2) - (image.size.height/2),
-                                              width: image.size.width,
-                                              height: image.size.height)
-                        ctx.draw(cgImage, in: centered)
-                    }
-
-                case .invisible:
-                    fallthrough
-
-                case .iOS:
-                    fallthrough
-
-                default:
-                    assert(false)
-                    break
-                }
-            }
-
-        case .invisible:
-            fallthrough
-
-        case .iOS:
-            fallthrough
-
-        default:
-            // Nothing to draw
-            break
-        }
-
         let maskLayer = CAShapeLayer()
         maskLayer.frame = trackLayer.bounds
         maskLayer.path = path.cgPath
@@ -384,57 +243,11 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
     }
 
     func drawTrack() {
-        switch(trackComponentStyle) {
-        case .rectangular:
-            trackLayer.frame = trackRectangle
-            trackLayer.cornerRadius = 0.0
-
-        case .invisible:
-            trackLayer.frame = CGRect.zero
-
-        case .image:
-            trackLayer.frame = CGRect.zero
-
-            // Draw image if exists
-            if let image = trackImage,
-                let cgImage = image.cgImage,
-                let ctx = UIGraphicsGetCurrentContext() {
-                let centered = CGRect(x: (frame.width/2) - (image.size.width/2),
-                                      y: (frame.height/2) - (image.size.height/2),
-                                      width: image.size.width,
-                                      height: image.size.height)
-                ctx.draw(cgImage, in: centered)
-            }
-
-        case .rounded:
-            fallthrough
-
-        case .iOS:
-            fallthrough
-
-        default:
-            trackLayer.frame = trackRectangle
-            trackLayer.cornerRadius = trackRectangle.height/2
-            break
-        }
-
-        leftTrackLayer.frame = {
-            var frame = trackLayer.bounds
-            frame.size.width = thumbAbscisse - trackRectangle.minX
-            return frame
-        }()
-
-        if let backgroundColor = minimumTrackTintColor ?? tintColor {
-            leftTrackLayer.backgroundColor = backgroundColor.cgColor
-        }
-
-        rightTrackLayer.frame = {
-            var frame = trackLayer.bounds
-            frame.size.width = trackRectangle.width - leftTrackLayer.frame.width
-            frame.origin.x = leftTrackLayer.frame.maxX
-            return frame
-        }()
-        rightTrackLayer.backgroundColor = maximumTrackTintColor.cgColor
+        trackLayer.frame =  CGRect(x: 0,
+                                   y: trackRectangle.origin.y,
+                                   width: frame.width,
+                                   height: trackRectangle.height)
+        trackLayer.cornerRadius = trackRectangle.height/2
     }
 
     func drawThumb() {
@@ -448,8 +261,8 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
                                    width: thumbWidth,
                                    height: thumbHeight)
 
-            let shadowRadius = (thumbComponentStyle == .iOS) ? iOSThumbShadowRadius : thumbShadowRadius
-            let shadowOffset = (thumbComponentStyle == .iOS) ? iOSThumbShadowOffset : thumbShadowOffset
+            let shadowRadius =  thumbShadowRadius
+            let shadowOffset =  thumbShadowOffset
 
             thumbLayer.frame = ((shadowRadius != 0.0)  // Ignore offset if there is no shadow
                 ? rectangle.insetBy(dx: shadowRadius + shadowOffset.width,
@@ -457,51 +270,11 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
                 : rectangle.insetBy(dx: shadowRadius,
                                     dy: shadowRadius))
 
-            switch thumbComponentStyle {
-            case .rounded: // A rounded thumb is circular
-                thumbLayer.backgroundColor = (thumbTintColor ?? UIColor.lightGray).cgColor
-                thumbLayer.borderColor = UIColor.clear.cgColor
-                thumbLayer.borderWidth = 0.0
-                thumbLayer.cornerRadius = thumbLayer.frame.height/2
-                thumbLayer.allowsEdgeAntialiasing = true
-
-            case .image:
-                // image is set using layer.contents
-                thumbLayer.backgroundColor = UIColor.clear.cgColor
-                thumbLayer.borderColor = UIColor.clear.cgColor
-                thumbLayer.borderWidth = 0.0
-                thumbLayer.cornerRadius = 0.0
-                thumbLayer.allowsEdgeAntialiasing = false
-
-            case .rectangular:
-                thumbLayer.backgroundColor = (thumbTintColor ?? UIColor.lightGray).cgColor
-                thumbLayer.borderColor = UIColor.clear.cgColor
-                thumbLayer.borderWidth = 0.0
-                thumbLayer.cornerRadius = 0.0
-                thumbLayer.allowsEdgeAntialiasing = false
-
-            case .invisible:
-                thumbLayer.backgroundColor = UIColor.clear.cgColor
-                thumbLayer.cornerRadius = 0.0
-
-            case .iOS:
-                fallthrough
-
-            default:
-                thumbLayer.backgroundColor = (thumbTintColor ?? UIColor.white).cgColor
-
-                // Only default iOS thumb has a border
-                if nil == thumbTintColor {
-                    let borderColor = UIColor(white:0.5, alpha: 1)
-                    thumbLayer.borderColor = borderColor.cgColor
-                    thumbLayer.borderWidth = 0.25
-                } else {
-                    thumbLayer.borderWidth = 0
-                }
-                thumbLayer.cornerRadius = thumbLayer.frame.width/2
-                thumbLayer.allowsEdgeAntialiasing = true
-                break
-            }
+            thumbLayer.backgroundColor = (thumbTintColor ?? UIColor.lightGray).cgColor
+            thumbLayer.borderColor = UIColor.clear.cgColor
+            thumbLayer.borderWidth = 0.0
+            thumbLayer.cornerRadius = thumbLayer.frame.height/2
+            thumbLayer.allowsEdgeAntialiasing = true
 
             // Shadow
             if(shadowRadius != 0.0) {
@@ -530,14 +303,14 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
         let thumbWidth = thumbSizeIncludingShadow().width
 
         // Calculate the track ticks positions
-        let trackHeight = (.iOS == trackComponentStyle) ? 2 : trackThickness
-        var trackSize = CGSize(width: frame.width - thumbWidth,
+        let trackHeight = trackThickness
+        let trackSize = CGSize(width: frame.width - thumbWidth,
                                height: trackHeight)
-        if(.image == trackComponentStyle) {
-            if let image = trackImage {
-                trackSize.width = image.size.width - thumbWidth
-            }
-        }
+
+
+        trackLayer.backgroundColor = trackColor?.cgColor
+        trackLayer.borderColor = trackBorderColor?.cgColor
+        trackLayer.borderWidth = trackBorderWidth
 
         trackRectangle = CGRect(x: (frame.width - trackSize.width)/2,
                                 y: (frame.height - trackSize.height)/2,
@@ -552,7 +325,6 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
         }
         layoutThumb()
 
-        // If we have a TGPDiscreteSliderTicksListener (such as TGPCamelLabels), broadcast new spacing
         if let ticksListener = ticksListener {
             for listener in ticksListener {
                 listener.mlbdTicksDistanceChanged(ticksDistance:ticksDistance, sender:self)
@@ -574,40 +346,14 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
     }
 
     func thumbSizeIncludingShadow() -> CGSize {
-        switch thumbComponentStyle {
-        case .invisible:
-            fallthrough
-
-        case .rectangular:
-            fallthrough
-
-        case .rounded:
-            return ((thumbShadowRadius != 0.0)
-                ? CGSize(width:thumbSize.width
-                    + (thumbShadowRadius * 2)
-                    + (thumbShadowOffset.width * 2),
-                         height: thumbSize.height
-                            + (thumbShadowRadius * 2)
-                            + (thumbShadowOffset.height * 2))
-                : thumbSize)
-
-        case .iOS:
-            return CGSize(width: 28.0
-                + (iOSThumbShadowRadius * 2)
-                + (iOSThumbShadowOffset.width * 2),
-                          height: 28.0
-                            + (iOSThumbShadowRadius * 2)
-                            + (iOSThumbShadowOffset.height * 2))
-
-        case .image:
-            if let thumbImage = thumbImage {
-                return thumbImage.size
-            }
-            fallthrough
-
-        default:
-            return CGSize(width: 33, height: 33)
-        }
+        return ((thumbShadowRadius != 0.0)
+            ? CGSize(width:thumbSize.width
+                + (thumbShadowRadius * 2)
+                + (thumbShadowOffset.width * 2),
+                     height: thumbSize.height
+                        + (thumbShadowRadius * 2)
+                        + (thumbShadowOffset.height * 2))
+            : thumbSize)
     }
 
     // MARK: UIResponder
@@ -658,7 +404,6 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
 
 
     // MARK: Touches
-
     func touchDown(_ touches: Set<UITouch>, animationDuration duration:TimeInterval) {
         if let touch = touches.first {
             let location = touch.location(in: touch.view)
@@ -686,7 +431,6 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
     }
 
     // MARK: Notifications
-
     func moveThumbToTick(tick: UInt) {
         let nonZeroIncrement = ((0 == incrementValue) ? 1 : incrementValue)
         let intValue = Int(minimumValue) + (Int(tick) * nonZeroIncrement)
@@ -735,7 +479,7 @@ public class MLBDDiscreteSlider:TGPSlider_INTERFACE_BUILDER {
             }
         }
     }
-    
+
     #if TARGET_INTERFACE_BUILDER
     // MARK: TARGET_INTERFACE_BUILDER stub
     //       Interface builder hides the IBInspectable for UIControl

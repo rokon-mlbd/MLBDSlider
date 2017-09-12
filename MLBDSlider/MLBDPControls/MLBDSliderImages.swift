@@ -48,15 +48,13 @@ class MLBDSliderImages: UIControl {
         super.init(frame: frame)
         layoutTrack()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         layoutTrack()
     }
 
     private func updateSliderForValue(_ value: Int) {
-        let calculatedValue = Int(round(Double(value) * rangOffset))
-        print(calculatedValue)
         for imageView in imageViews {
             if imageView.tickRange.contains(Double(value) * rangOffset) {
                 imageView.tintColor = .black
