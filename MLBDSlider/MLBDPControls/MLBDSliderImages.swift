@@ -8,12 +8,6 @@
 
 import UIKit
 
-// 1. Add Components
-// 2. Layout Components
-
-// setNeedsDispay
-// setNeedsLayout
-
 //@IBDesignable
 class MLBDSliderImages: UIControl {
 
@@ -70,9 +64,8 @@ class MLBDSliderImages: UIControl {
 
     func updateComponents() {
         // FIXME: Handle if set for multiple time. Should re-use in that case
-        for (i, image) in regularImages.enumerated() {
+        for image in regularImages {
             let imageView = TickImageView(frame: .zero)
-            imageView.tickRange = ((Double(i)-rangOffset))...((Double(i)+rangOffset))
             imageView.image = image
             imageView.contentMode = contentMood
             imageView.tintColor = .lightGray
@@ -91,6 +84,7 @@ class MLBDSliderImages: UIControl {
         for (i, imageView) in imageViews.enumerated() {
             let originX = imageOffSetX + ((imageOffSetX + imageViewWidth) *  CGFloat(i))
             imageView.frame = CGRect(x: originX, y: 0, width: imageViewWidth, height: height)
+            imageView.tickRange = ((Double(i)-rangOffset))...((Double(i)+rangOffset))
         }
     }
 
