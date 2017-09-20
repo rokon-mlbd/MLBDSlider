@@ -8,6 +8,12 @@
 
 import UIKit
 
+// 1. Add Components
+// 2. Layout Components
+
+// setNeedsDispay
+// setNeedsLayout
+
 //@IBDesignable
 class MLBDSliderImages: UIControl {
 
@@ -16,12 +22,12 @@ class MLBDSliderImages: UIControl {
     var ticksDistance: CGFloat = 0.0
     var rangOffset: Double = 0.5 {
         didSet {
-            layoutTrack()
+            setNeedsLayout()
         }
     }
     var regularImages:[UIImage] = [] {
         didSet {
-            layoutTrack()
+            updateComponents()
         }
     }
 
@@ -33,25 +39,23 @@ class MLBDSliderImages: UIControl {
 
     var imageOffSetX:CGFloat = 10.0 {
         didSet {
-            layoutTrack()
+            setNeedsLayout()
         }
     }
 
     var contentMood: UIViewContentMode = .bottom {
         didSet {
-            layoutTrack()
+            setNeedsLayout()
         }
     }
 
     // MARK: UIView
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layoutTrack()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        layoutTrack()
     }
 
     private func updateSliderForValue(_ value: Int) {
@@ -64,22 +68,10 @@ class MLBDSliderImages: UIControl {
         }
     }
 
-    private func layoutTrack() {
-
-        for view in imageViews  {
-            view.removeFromSuperview()
-        }
-        imageViews.removeAll()
-
-        let widht = self.bounds.width
-        let height = self.bounds.height
-        let numberOfImage = regularImages.count
-        let imageViewWidth = (widht -  CGFloat((numberOfImage + 1)) * imageOffSetX) / CGFloat(numberOfImage)
+    func updateComponents() {
+        // FIXME: Handle if set for multiple time. Should re-use in that case
         for (i, image) in regularImages.enumerated() {
-            let index = CGFloat(i)
-            let originX = imageOffSetX + ((imageOffSetX + imageViewWidth) * index)
-            let frame = CGRect(x: originX, y: 0, width: imageViewWidth, height: height)
-            let imageView = TickImageView(frame: frame)
+            let imageView = TickImageView(frame: .zero)
             imageView.tickRange = ((Double(i)-rangOffset))...((Double(i)+rangOffset))
             imageView.image = image
             imageView.contentMode = contentMood
@@ -87,6 +79,24 @@ class MLBDSliderImages: UIControl {
             self.addSubview(imageView)
             imageViews.append(imageView)
         }
+
+        setNeedsLayout()
+    }
+
+    private func layoutTrack() {
+        let width = self.bounds.width
+        let height = self.bounds.height
+        let numberOfImage = regularImages.count
+        let imageViewWidth = (width -  CGFloat((numberOfImage + 1)) * imageOffSetX) / CGFloat(numberOfImage)
+        for (i, imageView) in imageViews.enumerated() {
+            let originX = imageOffSetX + ((imageOffSetX + imageViewWidth) *  CGFloat(i))
+            imageView.frame = CGRect(x: originX, y: 0, width: imageViewWidth, height: height)
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutTrack()
     }
 }
 

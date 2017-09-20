@@ -104,6 +104,7 @@
                             <constraint firstAttribute="trailing" secondItem="RGy-t1-uVQ" secondAttribute="trailing" id="ijC-mc-W4o"/>
                             <constraint firstItem="Igu-Pn-jCP" firstAttribute="top" secondItem="D3I-gk-BrN" secondAttribute="bottom" constant="4" id="lFJ-oh-7tk"/>
                             <constraint firstItem="D3I-gk-BrN" firstAttribute="leading" secondItem="RGy-t1-uVQ" secondAttribute="leading" constant="8" id="lP4-Ut-xAT"/>
+                            <constraint firstItem="RGy-t1-uVQ" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="lwT-ZJ-4wu"/>
                             <constraint firstItem="Igu-Pn-jCP" firstAttribute="trailing" secondItem="RGy-t1-uVQ" secondAttribute="trailing" id="p7T-Vq-USv"/>
                         </constraints>
                     </view>
